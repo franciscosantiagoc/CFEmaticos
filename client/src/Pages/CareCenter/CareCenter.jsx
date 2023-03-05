@@ -31,7 +31,10 @@ export default function () {
     })
     const [dataRows, setDataRows] = React.useState(firstCharge);
     const handlerEdit = (id) => {
-        handleShow();
+      //dataEditSelected
+      let itemForEdit = data.filter(item => item.id === id);
+      dataEditSelected(itemForEdit[0]);
+      handleShow();
     }
     const handlerDelete = (id) => {
         Swal.fire({
@@ -76,7 +79,7 @@ export default function () {
     })
 
     const agencies = [
-        {value: 'all', label: 'Todas las agencias' },
+        {value: 'all', label: 'Todas las agencias', selected: true },
         ...agenciesFormat
     ]
     
