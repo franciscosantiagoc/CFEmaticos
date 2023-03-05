@@ -1,0 +1,76 @@
+.agencycontainer {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 50px;
+    h2 {
+        text-align: center;
+    }
+    .top-block {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        .filterform {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            button {
+                margin-top: 20px;
+                width: 150px;
+                height: 35px;
+                border-radius: 8px;
+                
+            }
+        }
+        .right {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            button {
+                margin-top: 20px;
+                width: 150px;
+                height: auto;
+                border-radius: 8px;
+                padding: 5px 10px;
+            }
+        }
+    }
+    .btn {
+        width: 150px;
+        min-height: 35px;
+        border-radius: 8px;
+        background-color: #bdbdbd;    
+        border: solid 1px #000000;    
+
+        &.btn-exportcsv, &.btn-register {
+            background-color: #0cb01a;
+            color: #ffffff;
+        }
+
+        &.data-edit, &.data-remove {
+            width: 35px !important;
+            height: 30px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &.data-edit {
+           background-color: #fff000;
+           &:hover{
+                background-color: #a0c800;
+           }
+        }
+        &.data-remove {
+            background-color: #ff2b2b;
+            &:hover {
+                background-color: #a80a0a;
+            }
+        }
+    }
+    .btn-exportcsv:hover, .btn-register:hover {
+        background-color: #0d4812;
+        color: #ffffff;
+    }
+}

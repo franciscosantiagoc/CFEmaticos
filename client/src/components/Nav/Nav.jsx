@@ -29,7 +29,12 @@ export default function NavComponent() {
               <NavDropdown.Item href="">Listar</NavDropdown.Item>
               <NavDropdown.Item href="">Registrar</NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Centros de atención" id="basic-nav-dropdown">
+              <NavDropdown.Item href="centros/lista">Listar</NavDropdown.Item>
+              <NavDropdown.Item href="centros/lista?nuevo=true">Registrar</NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link onClick={()=>{navigate('/login')}}>Login</Nav.Link>
+            <Nav.Link onClick={()=>{alert('sesión cerrada')}}>Cerrar sesión </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
