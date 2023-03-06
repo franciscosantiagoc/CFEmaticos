@@ -14,11 +14,6 @@
     "react-bootstrap": "^2.7.2",
     "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
-    "react-router-dom": "^6.8.2",
-    "react-scripts": "5.0.1",
-    "react-select": "^5.7.0",
-=======
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
@@ -26,7 +21,6 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
->>>>>>> develop
     "sweetalert2": "^11.7.3",
     "yup": "^1.0.2"
   },
