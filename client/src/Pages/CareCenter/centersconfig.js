@@ -23,16 +23,28 @@ export const data = [
     {
         id: 1,
         agency: 'Salina Cruz',
+<<<<<<< HEAD
+=======
+        agencyId: 'X',
+>>>>>>> develop
         centry: 'CAC',
     },
     {
         id: 2,
         agency: 'Salinacruz',
+<<<<<<< HEAD
+=======
+        agencyId: 'A',
+>>>>>>> develop
         centry: 'Centro',
     },
     {
         id: 3,
         agency: 'Juchitán',
+<<<<<<< HEAD
+=======
+        agencyId: 'B',
+>>>>>>> develop
         centry: 'Centro',
     },
 ]

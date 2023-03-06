@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Nav from './components/Nav/Nav';
 import Home from './Pages/Home/Home';
 import Login from './Pages/User/Login/Login';
-import ListAgency from './Pages/CareCenter/CareCenter';
+import ListCareCenter from './Pages/CareCenter/CareCenter';
 function App() {
   return (
     <>
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/centros/lista" element={<ListAgency/>} />
+        <Route path="/centros/lista" element={<ListCareCenter/>} />
       </Routes>
     </BrowserRouter>
     </>
