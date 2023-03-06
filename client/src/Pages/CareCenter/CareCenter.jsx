@@ -1,23 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSearchParams , useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import Select from 'react-select'
+import Select from 'react-select';
 import { columns, data, dataAgency, downloadCSV } from './centersconfig';
 import DataTable from 'react-data-table-component';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import AgencyManagement from './AgencyManagement/AgencyManagement';
 import './CareCenter.scss';
 
 export default function () {
+  let [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation();
+    //console.log(location)
+    
+    const [edit, setEdit] = React.useState(false);
+    const [register, setRegister] = React.useState(false);
+    const [manageAgency, setManageAgency] = React.useState(false);
+    const [agencySelected, setAgencySelected] = React.useState(null);
     const [filterOptionSelected, setFilterOptionSelected] = React.useState(null);
     const [dataEditSelected, setDataEditSelected] = React.useState(null);
-    
     const [selectedRows, setSelectedRows] = React.useState([]);
-
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleNewCenter = () => {
+      setRegister(true);
+      setShow(true);
+    }
+
+    const handleClose = () => {
+      setDataEditSelected(null);
+      setAgencySelected(null);
+      setEdit(null);
+      setRegister(null);
+      setShow(false);
+    }
     const handleShow = () => setShow(true);
     
     
@@ -31,23 +50,25 @@ export default function () {
     })
     const [dataRows, setDataRows] = React.useState(firstCharge);
     const handlerEdit = (id) => {
-      //dataEditSelected
       let itemForEdit = data.filter(item => item.id === id);
-      dataEditSelected(itemForEdit[0]);
+      setDataEditSelected(itemForEdit[0])
+      
+      setAgencySelected(agencies.filter(item => item.label === itemForEdit[0].agency)[0]);
       handleShow();
+      
     }
     const handlerDelete = (id) => {
         Swal.fire({
-            title: '¿Seguro que desea eliminar el centro seleccionado?',
-            showCancelButton: true,
-            confirmButtonText: 'Si',
-            cancelButtonText: `No`,
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              Swal.fire('¡Eliminado!', '', 'success')
-            } 
-          })
+          title: '¿Seguro que desea eliminar el centro seleccionado?',
+          showCancelButton: true,
+          confirmButtonText: 'Si',
+          cancelButtonText: `No`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            Swal.fire('¡Eliminado!', '', 'success')
+          } 
+        })
         
     }
     
@@ -73,6 +94,7 @@ export default function () {
     
     const agenciesFormat = dataAgency?.map(agency => {
         return {
+            id: agency.id,
             value: agency.name.toLowerCase(),
             label: agency.name
         }
@@ -83,17 +105,30 @@ export default function () {
         ...agenciesFormat
     ]
     
+    useEffect(() => {
+      if(location.search.includes('nuevo=true')){
+        handleNewCenter();
+      }
+      
+    }, [location])
+    
   return (
     <div className='agencycontainer'>
         <h2>Centros de atención registrados</h2>
         <div className='top-block'>
             <form className='filterform left' onSubmit={handleFilterDataRows}>
-                <Select options={agencies} onChange={(option)=>setFilterOptionSelected(option)}/>
+                <Select options={agencies} defaultValue onChange={(option)=>setFilterOptionSelected(option)}/>
                 <button type='submit'>Procesar</button>
             </form>
             <div className='right'>
-                <button className='btn btn-register'>Registrar nuevo</button>
-                <button className='btn btn-gestion'>Gestionar agencias</button>
+                <button className='btn btn-register' onClick={()=>{
+                  setRegister(true);
+                  setEdit(false);
+                  handleShow(true);
+                }}>Registrar nuevo</button>
+                <button className='btn btn-gestion' onClick={()=> {
+                  setManageAgency(!manageAgency);
+                }}>Gestionar agencias</button>
             </div>
         </div>
         
@@ -104,7 +139,7 @@ export default function () {
             selectableRows
             //actions={actionsMemo}
             contextActions={actionsMemo}
-			onSelectedRowsChange={handleRowSelected}
+			      onSelectedRowsChange={handleRowSelected}
             pointerOnHover={true}
             pagination
             noDataComponent={'No se han encontrado resultados'}
@@ -137,39 +172,40 @@ export default function () {
                 </div>
             </div>
         </div>
-
-        <Modal show={show} onHide={handleClose}>
+        
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{register ? 'Registro' : 'Edición'} de Centros</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="name@example.com"
-                autoFocus
-              />
+            <Form.Group className="mb-3">
+              <Form.Label>Agencia</Form.Label>
+              <Select options={agencies} defaultValue={agencySelected!=null ? agencySelected : null} onChange={(option)=>setFilterOptionSelected(option)}/>
             </Form.Group>
             <Form.Group
               className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Label>Nombre del centro</Form.Label>
+              <Form.Control type='text' value={dataEditSelected?.centry} onChange={(event)=>{}}/>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          {/* <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
+          </Button> */}
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            {register ? 'Registrar centro':'Guardar Cambios'}
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {
+        manageAgency && (
+          <AgencyManagement dataAgency={dataAgency} actionsMemo={actionsMemo}/>
+        )
+      }
 
     </div>
   )
