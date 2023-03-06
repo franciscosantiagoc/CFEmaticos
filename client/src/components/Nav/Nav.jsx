@@ -17,7 +17,7 @@ export default function NavComponent() {
 
   const logout = () => {
     localStorage.removeItem('user');
-    windows.location = '/';
+    window.location = '/';
   }
   useEffect(() => {
     if(itemStorage !=null) {
