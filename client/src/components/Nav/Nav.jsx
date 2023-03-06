@@ -17,13 +17,12 @@ export default function NavComponent() {
 
   const logout = () => {
     localStorage.removeItem('user');
+    windows.location = '/';
   }
   useEffect(() => {
     if(itemStorage !=null) {
       setUser(JSON.parse(localStorage.getItem('user')));
-    }/* else {
-      window.location = '/login';
-    } */
+    }
   },[])
   
   return (
