@@ -1,8 +1,5 @@
 
 import * as Yup from 'yup';
-<<<<<<< HEAD
-
-=======
 const users = [
   { 
     id: '12FS2',
@@ -26,7 +23,6 @@ const users = [
     password: '1234HRP'
   },
 ]
->>>>>>> develop
 export const formikConfig = {
     initialValues: {
         id: '',
