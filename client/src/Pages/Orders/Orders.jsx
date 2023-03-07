@@ -1,46 +1,50 @@
 import React, {useState, useEffect} from 'react';
-import { useSearchParams , useLocation } from 'react-router-dom';
+
 import Swal from 'sweetalert2';
 import Select from 'react-select';
-import { data, columns, dataCareCentries } from './cfematicsConfig';
+import { data, columns, dataCareCentries } from './ordersConfig';
 import {  dataAgency, downloadCSV } from '../CareCenter/centersconfig';
 import DataTable from 'react-data-table-component';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import './ListCfematics.scss';
+import './Orders.scss';
 
-export default function ListCfematics() {
-    let [searchParams, setSearchParams] = useSearchParams();
-    const location = useLocation();
+export default function Orders() {
     //console.log(location)
   
     const [edit, setEdit] = React.useState(false);
     const [register, setRegister] = React.useState(false);
-    const [cfematicSelected, setCfematicSelected] = React.useState(null);
+    const [agencySelected, setAgencySelected] = React.useState(null);
     const [filterOptionSelected, setFilterOptionSelected] = React.useState(null);
     const [dataEditSelected, setDataEditSelected] = React.useState(null);
     const [selectedRows, setSelectedRows] = React.useState([]);
     const [show, setShow] = useState(false);
   
-    const handleNewCenter = () => {
-      setRegister(true);
-      setShow(true);
-    };
-  
     const handleClose = () => {
       setDataEditSelected(null);
       setEdit(null);
-      setRegister(null);
+      setRegister(null)
       setShow(false);
     };
     const handleShow = () => setShow(true);
   
-    let firstCharge = data?.map((dat) => {
+    let firstCharge = data.data?.map((dat) => {
+        //console.log(dat);   
+        let perOperation = (100/data.count) * dat.ordersCount,
+        percentage = perOperation.toFixed(2)
+        //percentage = arrayper[0] + '.' + arrayper[1].slice(0,2);
+
       return {
         ...dat,
         sortable: true,
+        percentage: percentage,
+        view:  (
+            <button className="btn data-view" onClick={() => alert('No disponible por el momento')}>
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          ),
         edit: (
           <button className="btn data-edit" onClick={() => handlerEdit(dat.id)}>
             <i className="fa-regular fa-pen-to-square"></i>
@@ -61,7 +65,7 @@ export default function ListCfematics() {
       let itemForEdit = data.filter((item) => item.id === id);
       setDataEditSelected(itemForEdit[0]);
   
-      setCfematicSelected(
+      setAgencySelected(
         agencies.filter((item) => item.label === itemForEdit[0].agency)[0]
       );
       handleShow();
@@ -83,17 +87,6 @@ export default function ListCfematics() {
     /* Filtrado */
     const handleFilterDataRows = (event) => {
       event.preventDefault();
-      if (filterOptionSelected === null) return;
-      if (filterOptionSelected?.value === "all") {
-        setDataRows(firstCharge);
-      } else {
-        let datafiltered = data?.filter(
-          (dataFilter) =>
-            dataFilter.agency.toLowerCase() ===
-            filterOptionSelected.value.toLowerCase()
-        );
-        setDataRows(datafiltered);
-      }
     };
   
     /* Exportar a csv */
@@ -140,43 +133,60 @@ export default function ListCfematics() {
       { value: "all", label: "Todas las agencias", selected: true },
       ...agenciesFormat,
     ];
-
+    
     const careCentries = [
         { value: "", label: "Seleccione un centro", selected: true },
-        ...centriesFormat,
+        //...centriesFormat,
       ];
-  
-    useEffect(() => {
-      if (location.search.includes("nuevo=true")) {
-        handleNewCenter();
-      }
-    }, [location]);
+
   
     return (
-      <div className="cfematicscontainer">
+      <div className="agencycontainer">
         <h2>CFEmáticos registrados</h2>
         <div className="top-block">
-          {/* <form className="filterform left" onSubmit={handleFilterDataRows}>
+          <form className="filterform left" onSubmit={handleFilterDataRows}>
+            <label>Agencia</label>
             <Select
               options={agencies}
               defaultValue
               onChange={(option) => setFilterOptionSelected(option)}
             />
+            <label>Centro</label>
+            <Select
+              options={agencies}
+              defaultValue
+              onChange={(option) => setFilterOptionSelected(option)}
+            />
+            <label>cfematico</label>
+            <Select
+              options={agencies}
+              defaultValue
+              onChange={(option) => setFilterOptionSelected(option)}
+            />
+            <Form.Label>Desde</Form.Label>
+                <Form.Control
+                  type="date"
+                  onChange={(event) => {}}
+                />
+            <Form.Label>Hata</Form.Label>
+                <Form.Control
+                  type="date"
+                  onChange={(event) => {}}
+                />
             <button type="submit">Procesar</button>
-          </form> */}
+          </form>
           <div className="right">
-            <button
-              className="btn btn-register"
-              onClick={() => {
-                setRegister(true);
-                setEdit(false);
-                handleShow(true);
-              }}
-            >
-              Registrar nuevo
-            </button>
-            
-          </div>
+          <button
+            className="btn btn-register"
+            onClick={() => {
+              setRegister(true);
+              setEdit(false);
+              handleShow(true);
+            }}
+          >
+            Registrar nuevo
+          </button>
+           </div>
         </div>
   
         <DataTable
@@ -202,7 +212,7 @@ export default function ListCfematics() {
                 <Form.Label>Agencia</Form.Label>
                 <Select
                   options={agencies}
-                  defaultValue={cfematicSelected != null ? cfematicSelected : null}
+                  //defaultValue={cfematicSelected != null ? cfematicSelected : null}
                   onChange={(option) => setFilterOptionSelected(option)}
                 />
               </Form.Group>
@@ -210,14 +220,22 @@ export default function ListCfematics() {
                 <Form.Label>Agencia</Form.Label>
                 <Select
                   options={careCentries}
-                  defaultValue={cfematicSelected != null ? cfematicSelected : null}
+                  //defaultValue={cfematicSelected != null ? cfematicSelected : null}
                   onChange={(option) => setFilterOptionSelected(option)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Identificador del cfematico</Form.Label>
+                <Form.Label>Cfematico</Form.Label>
                 <Form.Control
                   type="text"
+                  value={dataEditSelected?.cfematic}
+                  onChange={(event) => {}}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Archivo</Form.Label>
+                <Form.Control
+                  type="file"
                   value={dataEditSelected?.cfematic}
                   onChange={(event) => {}}
                 />
