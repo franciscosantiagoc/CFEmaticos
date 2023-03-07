@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import Select from "react-select";
-import { columns, data, dataAgency, downloadCSV } from "./centersConfig";
+import { columns, data, dataAgency, downloadCSV } from "./centersConfig.js";
 import DataTable from "react-data-table-component";
 
 import Button from "react-bootstrap/Button";
