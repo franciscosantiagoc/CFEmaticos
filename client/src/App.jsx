@@ -4,6 +4,7 @@ import Home from './Pages/Home/Home';
 import Login from './Pages/User/Login/Login';
 import ListCareCenter from './Pages/CareCenter/CareCenter';
 import ListCfematics from './Pages/Cfematics/ListCfematics';
+import Orders from './Pages/Orders/Orders';
 import NotFound from './Pages/NotFound/NotFound';
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/centros/lista" element={<ListCareCenter/>} />
         <Route path="/cfematicos/lista" element={<ListCfematics/> } />
+        <Route path="/ordenes" element={<Orders/>} />
         <Route path="/*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>

@@ -47,7 +47,10 @@ export default function NavComponent() {
               }}>Registrar</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Ordenes manten..." id="basic-nav-dropdown">
-              <NavDropdown.Item href="">Listar</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{
+                if(window.location != '/ordenes')
+                  navigate('/ordenes');
+              }}>Listar</NavDropdown.Item>
               <NavDropdown.Item href="">Registrar</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Centros de atención" id="basic-nav-dropdown">
