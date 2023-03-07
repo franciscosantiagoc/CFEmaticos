@@ -43,6 +43,7 @@ export default function Orders() {
         view:  (
             <button className="btn data-view" onClick={() => alert('No disponible por el momento')}>
               <i className="fa-solid fa-eye"></i>
+
             </button>
           ),
         edit: (
@@ -199,8 +200,8 @@ export default function Orders() {
           pointerOnHover={true}
           pagination    
         />
-
         <p className='data-total'><b>Total:</b>{data?.count}</p>
+
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
