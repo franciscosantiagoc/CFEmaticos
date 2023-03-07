@@ -3,7 +3,7 @@ import { useSearchParams , useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Select from 'react-select';
 import { data, columns, dataCareCentries } from './cfematicsConfig';
-import {  dataAgency, downloadCSV } from '../CareCenter/centersConfig';
+import {  dataAgency, downloadCSV } from './../CareCenter/centersConfig';
 import DataTable from 'react-data-table-component';
 
 import Button from 'react-bootstrap/Button';
