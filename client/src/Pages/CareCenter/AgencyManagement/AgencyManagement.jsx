@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Swal from 'sweetalert2';
 //import Select from 'react-select';
-import { downloadCSV } from '../centersconfig';
+import { downloadCSV } from '../centersConfig';
 import { columns } from './agenciesconfig';
 
 import DataTable from 'react-data-table-component';

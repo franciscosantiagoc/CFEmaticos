@@ -37,9 +37,13 @@ export default function NavComponent() {
             <Nav.Link onClick={()=>{navigate('/')}}>Inicio</Nav.Link>
             {user && (<>
             <NavDropdown title="CFEmáticos" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/orders">Listar</NavDropdown.Item>
               <NavDropdown.Item onClick={()=>{
-                navigate('/orders/new')
+                if(window.location != '/cfematicos/lista')
+                  navigate('/cfematicos/lista')
+              }}>Listar</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{
+                if(window.location != '/cfematicos/lista?nuevo=true')
+                  navigate('/cfematicos/lista?nuevo=true');
               }}>Registrar</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Ordenes manten..." id="basic-nav-dropdown">
