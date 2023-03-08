@@ -3,22 +3,32 @@ export const columns = [
     {
         name: 'Agencia',
         selector: row => row.agency,
+        sortable: true,
+		sortField: 'agency'
     },
     {
         name: 'Centro',
         selector: row => row.centry,
+        sortable: true,
+		sortField: 'centry'
     },
     {
         name: 'Cajero',
         selector: row => row.cfematic,
+        sortable: true,
+		sortField: 'cfematic'
     },
     {
         name: 'Ordenes',
         selector: row => row.ordersCount,
+        sortable: true,
+		sortField: 'ordersCount'
     },
     {
         name: '%',
         selector: row => row.percentage,
+        sortable: true,
+		sortField: 'percentage'
     },
     {
         name: 'Ver',
