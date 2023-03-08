@@ -10,7 +10,7 @@ export default function Home() {
   },[])
   return (
     <div className="container-home">
-        <h2>{user ? `Hola ${user.name} ${user.aPaterno} bienvenid@`: 'Bienvenidos a CFEmáticos'}</h2>
+        <h2>{user ? `Hola ${user.name} ${user.aPaterno} bienvenid@`: 'Bienvenidos al Seguimiento de órdenes de trabajo de mantenimiento correctivo'}</h2>
     </div>
   )
 }
