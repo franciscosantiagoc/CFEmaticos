@@ -6,7 +6,7 @@ Bienvenidos a CFEmaticos code, proyecto desarrollado con el objetivo de darle se
 
 ## Instalación del proyecto
 
-Para lograr la correcta ejecución del proyecto, deberá instalar [Nodejs](https://www.github.com/octokatherine) en su ultima version LTS.
+Para lograr la correcta ejecución del proyecto, deberá instalar [Nodejs](https://nodejs.org/en/) en su ultima version LTS.
 
 Una vez instalado Nodejs en nuestro equipo podremos ejecutar el proyecto a través de la consola usando los siguientes comandos:
 
